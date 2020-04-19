@@ -20,9 +20,9 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label>fecha de inicio</Label>
-                <TextBox x:Name="txtFechaInicio" Text="01/01/1990"></TextBox>
+                <TextBox x:Name="txtFechaInicio" Text="04/08/1994"></TextBox>
                 <Label>fecha fin</Label>
-                <TextBox x:Name="txtFechaFin" Text="01/01/1990"></TextBox>
+                <TextBox x:Name="txtFechaFin" Text="16/09/1994"></TextBox>
                 <Button x:Name="btnConsultar" Click="BtnConsutar_Click">consultar</Button>
             </StackPanel>
             

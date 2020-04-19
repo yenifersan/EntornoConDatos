@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,8 +14,7 @@ namespace WpfSemana03
         public SqlConnection LeerCadena()
         {
             SqlConnection connection =
-                new SqlConnection("Data Source=sql5047.site4now.net;"+
-                "Initial Catalog=DB_A5A769_yensan;User ID=DB_A5A769_yensan_admin;Password=yenifer12345.;");
+               new SqlConnection(ConfigurationManager.ConnectionStrings["Leon"].ConnectionString);
             return connection;
         }
 
@@ -36,7 +36,7 @@ namespace WpfSemana03
         {
             SqlConnection connection = LeerCadena();
             connection.Open();
-            SqlDataAdapter sqlData = new SqlDataAdapter("usp_detalle", connection);
+            SqlDataAdapter sqlData = new SqlDataAdapter("USP_ListarDetalle", connection);
             sqlData.SelectCommand.CommandType = CommandType.StoredProcedure;
             sqlData.SelectCommand.Parameters.AddWithValue("@IdPedido", x);
             DataTable dataTable = new DataTable();
@@ -50,15 +50,14 @@ namespace WpfSemana03
         {
             SqlConnection connection = LeerCadena();
             connection.Open();
-            SqlDataAdapter sqlData = new SqlDataAdapter("usp_total", connection);
+            SqlDataAdapter sqlData = new SqlDataAdapter("usp_Total", connection);
             sqlData.SelectCommand.CommandType = CommandType.StoredProcedure;
             sqlData.SelectCommand.Parameters.AddWithValue("@IdPedido", idpedido);
             sqlData.SelectCommand.Parameters.Add(
-                "@Total", SqlDbType.Money).Direction =
-                ParameterDirection.Output;
+            "total", SqlDbType.Money).Direction =ParameterDirection.Output;
             sqlData.SelectCommand.ExecuteScalar();
             Int32 total = Convert.ToInt32(
-                    sqlData.SelectCommand.Parameters["@Total"].Value);
+             sqlData.SelectCommand.Parameters["total"].Value);
             connection.Close();
             return total;
 
